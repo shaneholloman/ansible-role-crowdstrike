@@ -2,7 +2,7 @@
 - name: Import CrowdStrike Falcon system package GPG key
   block:
     - name: Grab CrowdStrike Falcon system package GPG key from S3
-      ansible.builtin.aws_s3:
+      amazon.aws.s3_object:
         bucket: "{{ crowdstrike_third_party_bucket_name }}"
         dest: /tmp/{{ package_gpg_key_object_name }}
         mode: get
@@ -23,7 +23,7 @@
 - name: Install CrowdStrike Falcon (RedHat)
   ansible.builtin.dnf:
     name:
-      - /tmp/{{ package_object_name }}
+      - /tmp/{{ package_file }}
 
 - name: Delete copies of CrowdStrike Falcon system package GPG key
   block:
